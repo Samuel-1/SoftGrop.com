@@ -12,6 +12,9 @@
             include_once ("sign_in.php");
             ?>
             </div>
+        <div id = "category">
+            <a href="category.php">Категорії<a>
+        </div>
         <div id = "logo">
             <h1 id="line">Моя музика</h1>
         </div>

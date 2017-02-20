@@ -16,22 +16,28 @@
         Додати мініатюру<br>
         <input type="file" name="upfile"><br><br>
 
-        <input type="submit" name="add" value="Додати"><br><br>
+        <select name="category">
+            <?php include_once ("db.php");
+                $res=mysql_query( "select * from category");
+                while($row=mysql_fetch_array($res)):?>
+                <option value="<?=$row['id']?>"><?=$row['title_category']; ?></option>
+            <?php endwhile; ?>
+        </select><br><br>
+        <input type="submit" name="add" value="Додати">
+        <br>
+        <br>
     </form>
 </div>
 
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 include_once ("db.php");
 if(isset($_POST['add'])){
     $url = "";
 
-    echo "<pre>";
-    var_dump($_FILES);
-    echo "</pre>";
     if(isset($_FILES['upfile'])){
 
         $dir_name = dirname(__FILE__)."\\image\\";
@@ -56,18 +62,21 @@ if(isset($_POST['add'])){
                 }
             }
             else {
-                echo "Помилка з розмыром файлу";
+                echo "Помилка з розміром файлу";
             }
         }
     }
 
     $title = strip_tags(trim($_POST['title']));
     $full_text = strip_tags(trim($_POST['full_text']));
-    echo $query = "INSERT INTO news SET 
+    $category_id = (int)strip_tags(trim($_POST['category']));
+
+    $query = "INSERT INTO news SET 
                 title = '".$title."',
                 full_text = '".$full_text."',
-                upfile = '".$url."';";
-    var_dump(mysql_query($query));
+                upfile = '".$url."',
+                category_id = '".$category_id."';";
+    mysql_query($query);
     mysql_close();
 }
 
