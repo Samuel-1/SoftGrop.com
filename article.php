@@ -38,7 +38,7 @@ include_once ("head.php");
         </div>
         <? endwhile; ?>
         <form action="/article.php?id=<?=$post_id?>" method="post">
-            Залишти свою думку тут:
+            Залишити свою думку тут:
             <textarea name="text" rows="5" cols="45"> </textarea><br>
             <input type="submit" name="add" value="Додати"><br><br>
         </form>
